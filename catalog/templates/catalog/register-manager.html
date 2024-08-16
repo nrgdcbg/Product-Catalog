@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container w-75">
+
+        <br>
+        <h2 class="py-4 px-4">Register a Manager</h2>
+        <div class="container bg-light p-5">            
+
+            <!-- form start -->
+                    
+            <form method = "POST" action = "">
+                
+                <div class="row gx-5 px-4">
+                {% csrf_token %}     
+                    <!-- replace all p and input with form | as_crispy_form -->
+                    <div class="col">
+                        
+                        <p>Username</p>
+                        {{form.username}}
+                        
+                        <br>
+
+                        <p>First Name</p>
+                        {{form.first_name}}
+                        
+                        <br>
+
+                        <p>Last Name</p>
+                        {{form.last_name}}
+                        
+                        <br>
+
+
+                    </div>
+
+                    <div class="col">
+
+                        <div class="mb-3">
+                            <!-- replace p and input with form.password1 | as_crispy_field -->
+                            <p>Password</p>
+                            {{form.password1}}
+                            
+                        </div>
+                        <div class="mb-3">
+                            <!-- form.password2 | as_crispy_field -->
+                            <p>Re-enter Password</p>
+                            {{form.password2}}
+                            
+                        </div>
+
+                    </div>
+                    
+                    <div class="container-fluid text-end">
+                        <br>
+                        <input class="btn btn-dark" type="submit" value="Register">
+                    </div>
+
+                </div>
+
+            </form>
+
+            <!-- form end -->
+
+        </div>
+
+        <br><br>
+
+        <br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

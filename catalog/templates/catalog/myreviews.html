@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container">
+
+        <br>
+        <!-- featured products -->
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <br><br><br>
+                <div class="container bg-light p-5">
+
+                    <h4><i class="fa-solid fa-pen"></i> My Reviews:</h4>
+                    <br>
+                    
+                    <!-- for loop all reviews -->
+                    {% for review in reviews %}
+                        <div class="container border bg-white p-4 mx-2 my-1">
+                            <div class="row align-items-baseline">
+                                <div class="col-auto">
+                                    <h5>{{review.product}}</h5>
+                                </div>
+                                
+                                <div class="col-auto">
+                                    <!-- <span style="height:15px;width:15px;border-radius:50%;background-color:rgb(255, 255, 116);display:inline-block;"></span> -->
+
+                                    <span>{{review.rating}} <small style="font-size:11px"> / 5</small></span>
+                                </div>
+                                
+                                <div class="col text-end">
+                                    <a href="{% url 'reviewsEditPage' review.id%}" class="border rounded-3 p-2 text-black"><i class="fa-solid fa-pen-to-square fa-fw"></i></a>
+                                </div>
+                            </div>
+                            <small class="text-muted my-1">{{review.date}}</small>
+                            <p class="my-3">{{review.details}}</p>
+                        </div>
+                    {% empty %}
+                        <div class="container bg-white border p-5 mx-2 text-center">
+                            <h5>You don't have any reviews.</h5>
+                            <p class="text-muted my-0">Add a review from the products page.</p>
+                        </div>
+                    {% endfor %}
+                    <!-- end for -->
+
+                </div>
+
+            </div>
+        </div>
+        <br><br>
+
+        <br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

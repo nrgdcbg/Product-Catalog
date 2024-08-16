@@ -1,0 +1,85 @@
+<!-- format if user is a reviewer -->
+{% if user.user_type == 4 %}
+<div class="col-3 mb-4">
+    <div class="card p-2 my-1 bg-light">
+        {% for photo in product.photos.all %}
+            {% if forloop.first %}
+                <img src="{{photo.photo.url}}" class="img-thumbnail mb-2" style="height:175px;object-fit:cover">
+            {% endif %}
+            {% empty %}
+                <div class="d-flex img-thumbnail bg-white mb-2 justify-content-center align-items-center" style="height:175px">
+                    <div>
+                        <small class="my-auto">No image available.</small>
+                    </div>
+                </div>
+        {% endfor %}
+        <br>
+        <a href="{% url 'productReviewsPage' product.id %}" class="my-0 text-black text-decoration-none">{{product.name}}</a>
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'productsPage' %}" class="my-0 text-muted text-decoration-none" style="font-size:14px;">{{product.category}}</a>
+                <br>
+                <i class="fa-solid fa-star text-warning"></i>
+                <span>{{product.rating}} <small style="font-size:11px">({{product.reviewCount}} reviews)</small></span>
+            </div>
+            <div class="col-auto">
+                <p class="my-0 float-end">P{{product.sellingprice}}</p>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- format if user is a manager -->
+{% elif user.user_type == 1 %}
+<div class="col-3 mb-4">
+    <div class="card p-2 my-1 bg-light">
+        {% for photo in product.photos.all %}
+            {% if forloop.first %}
+                <img src="{{photo.photo.url}}" class="img-thumbnail mb-2" style="height:175px;object-fit:cover">
+            {% endif %}
+            {% empty %}
+                <div class="d-flex img-thumbnail bg-white mb-2 justify-content-center align-items-center" style="height:175px">
+                    <div>
+                        <small class="my-auto">No image available.</small>
+                    </div>
+                </div>
+        {% endfor %}
+        <br>
+        <a href="{% url 'productReviewsPage' product.id %}" class="my-0 text-black text-decoration-none">{{product.name}}</a>
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'productsPage' %}" class="my-0 text-muted text-decoration-none" style="font-size:14px;">{{product.category}}</a>
+                <br>
+                <p class="mb-0"><i class="fa-solid fa-cubes-stacked"></i> {{product.stocks}} <small class="text-muted"> / {{product.reorderlvl}}</small></p>
+            </div>
+            <div class="col-auto text-end">
+                <p class="mb-0">P{{product.sellingprice}}</p>
+                <a href="{% url 'productsMediaPage' product.id %}" class="border rounded-3 p-0 text-secondary"><i class="fa-solid fa-image fa-fw"></i></a>
+                <a href="{% url 'productsEditPage' product.id %}" class="border rounded-3 p-0 text-secondary"><i class="fa-solid fa-pen-to-square fa-fw"></i></a>
+                <br>
+                <button type="button" class="border rounded-3 p-0 px-1 my-1 text-danger" data-bs-toggle="modal" data-bs-target="#archivePopup{{product.id}}"><i class="fa-solid fa-box-archive fa-fw"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="archivePopup{{product.id}}" tab-index="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Archive product</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to archive this product?</p>
+            </div>
+            <div class="modal-footer">
+                <!-- link to archive here -->
+                <a class="btn btn-danger" href="{% url 'archiveProduct' product.id %}"><i class="fa-solid fa-box-archive"></i> Archive</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-x"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container">
+
+        <br>
+        <!-- featured products -->
+        <div class="container-fluid w-75">
+            <h2 class="pt-4 pb-2"><i class="fa-solid fa-award fs-2"></i> Featured Items</h2>
+            <hr><br>
+
+            <div class="container w-50">
+
+                <div id="featureditems" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel">
+                    <!-- carousel indicators -->
+                    <div class="carousel-indicators">
+                        {% for product in featured %}
+                            {% if forloop.first %}
+                            <button type="button" data-bs-target="featured-items" data-bs-slide-to="{{forloop.counter0}}" class="active"></button>
+                            {% else %}
+                            <button type="button" data-bs-target="featured-items" data-bs-slide-to="{{forloop.counter0}}"></button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- carousel contents -->
+                    <div class="carousel-inner bg-primary">
+                        {% for product in featured %}
+                            {% if forloop.first %}
+                            <div class="carousel-item active">
+                            {% else %}
+                            <div class="carousel-item">
+                            {% endif %}
+                            {% for photo in product.photos.all %}
+                                {% if forloop.first %}
+                                    <img style="height:400px;object-fit:cover;" src="{{photo.photo.url}}" class="d-block w-100">
+                                {% endif %}
+                            {% endfor %}    
+                            <div class="carousel-caption d-none d-md-block bg-light opacity-75 rounded-3">
+                                <a href="{% url 'productReviewsPage' product.id %}" class="my-0 text-black text-decoration-none"><h5>{{product.name}}</h5></a>
+                                {% if user.user_type == 1 %}
+                                <p class="my-0"><i class="fa-solid fa-cubes-stacked"></i> {{product.stocks}} <small style="font-size:11px;"> / {{product.reorderlvl}}</small></p>
+                                {% else %}
+                                <p class="my-0"><i class="fa-solid fa-star text-warning"></i> {{product.rating}} <small style="font-size:11px;">({{product.reviewCount}} reviews)</small></p>
+                                {% endif %}
+                                <p>P{{product.sellingprice}}</p>
+                            </div>
+                            </div>
+                        {% empty %}
+                        <div class="carousel-item active bg-light">
+                            <img style="height:300px;object-fit:cover;" src="{{photo.photo.url}}" class="d-block w-100">
+                        </div>
+                        <div class="carousel-caption d-none d-md-block bg-light opacity-75 rounded-3">
+                            <h5 class="text-muted">There are no featured products.</h5>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- carousel controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#featureditems" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#featureditems" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+        <br><br>
+
+        <!-- new products -->
+        <div class="container-fluid w-75">
+                
+            <h2 class="px-4 pt-4"><i class="fa-solid fa-bolt fs-2"></i> New Products</h2>
+            <hr>
+
+            <div class="row">
+
+                <!-- product list -->
+                <!-- start loop (4 products max) -->
+                {% for p in newest%}
+                    {% include 'catalog/product-card.html' with product=p %}
+                {% endfor %}
+                <!-- end loop -->
+
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <!-- best-selling products -->
+        <div class="container-fluid w-75">
+                
+            <h2 class="pt-4 px-4"><i class="fa-solid fa-fire-flame-curved fs-2"></i> Best-selling Products</h2>
+            <hr>
+
+            <div class="row">
+
+                <!-- product list -->
+                <!-- start loop 4 products max -->
+                {% for p in bestselling %}
+                    {% include 'catalog/product-card.html' with product=p %}
+                {% endfor %}
+                <!-- end loop -->
+
+            </div>
+
+        </div>
+
+        <br><br><br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

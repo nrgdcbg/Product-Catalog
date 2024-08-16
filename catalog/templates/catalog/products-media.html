@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    {% load crispy_forms_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container w-75">
+
+        <br>
+        <h2 class="py-4 px-4"><i class="fa-solid fa-image"></i> Product Media</h2>
+        <div class="container bg-light p-5">            
+
+            <br>
+
+            <div class="row justify-content-center gy-2">
+                {% for p in pm %}
+                <!-- loop through all existing media of the product -->
+
+                <div class="col-auto border img-thumbnail p-2 mx-1 bg-white">
+                    <img src="{{p.photo.url}}" alt="" style="height:200px;">
+                    <div class="container pe-0 mt-1 text-end">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePopup{{p.id}}"><i class="fa-solid fa-trash fa-fw"></i></button>
+                    </div>
+                </div>
+
+                <!-- popup for delete -->
+                <div class="modal" id="deletePopup{{p.id}}" tab-index="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>Delete media</h5>
+                                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this media?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- link to delete here -->
+                                <a class="btn btn-danger" href="deleteTask"><i class="fa-solid fa-trash"></i> Delete</a>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-x"></i> Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-auto border img-thumbnail p-2 mx-1 bg-white">
+                    <div class="container p-5 text-center">
+                        <small class="text-muted">There are no images yet.</small>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- end loop -->
+
+            </div>
+
+            <br><br>
+
+
+            <div class="row">
+                <div class="col">
+                    <h4>Add media</h4>
+
+                    <!-- form start -->
+                    <form method="POST" action="" enctype = "multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row gx-5 px-4">
+                            
+                            <!-- remove p and input with form | as_crispy_form -->
+                            {{form.photo | as_crispy_field}}
+        
+                        </div>
+        
+                        <div class="row justify-content-end mt-3">
+                            <div class="col col-sm-auto">
+                                <button type="Submit" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                    <!-- form end -->
+
+                </div>
+
+                <div class="col">
+                    <br><br>
+                    <div class="row justify-content-end mt-5">
+                        <div class="col col-sm-auto">
+                            <a href="{% url 'productsPage' %}" class="btn btn-secondary"><i class="fa-solid fa-caret-left"></i> Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+
+        </div>
+
+        <br><br>
+
+        <br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

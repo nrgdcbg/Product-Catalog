@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
+    {% include 'catalog/head-modules.html' %}
+    <title>Log in</title>
+</head>
+<body>
+
+    <!-- page here -->
+
+    <div class="container-fluid">
+        <div class="row align-items-center bg-white vh-100">
+            <div class="col">
+
+                <div class="container mx-auto bg-light border w-50 pt-4">
+                    <h4>Log in</h4>
+                    <hr>
+                    
+                    <div class="row px-3">
+                        <div class="col-7 pe-4">
+                            
+                            <!-- form start -->
+                            <form method = "POST" action = "">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="loginuser" class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginpass" class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="text-muted text-decoration-none" href="{% url 'changePasswordPage' %}" style="font-size:12px">Forgot password</a><br>
+                                        <a class="text-muted text-decoration-none" href="{% url 'registerPage' %}" style="font-size:12px">Sign up</a>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-end pt-3">
+                                            <button type="submit" class="btn text-left btn-dark">Log in</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- form end -->
+                            
+                            <br><br>
+                        </div>
+            
+                        <div class="col-5 ps-4">
+                            <br>
+                            <p>For your safety, never share your login information with other people.</p>
+                            <p>Our staff would never ask for your password.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end of page -->
+
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

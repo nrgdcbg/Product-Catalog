@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container w-75">
+
+        <br>
+        <h2 class="py-4 px-4"><i class="fa-solid fa-user"></i> My Profile</h2>
+        <div class="container bg-light p-5">
+            
+            <hr><br>
+
+            <div class="container w-75">
+                <div class="row gx-5">
+                    
+                    <div class="col-auto">
+                        {% if profile.profilepicture %}
+                            <img class="rounded-3" src="{{profile.profilepicture.url}}" alt="" height="200px" width="200px">
+                        {% else %}
+                            <img class="rounded-3" src="{% static 'default_pfp.png' %}" alt="" height="200px" width="200px">
+                        {% endif %}
+                    </div>
+
+                    <div class="col lh-2">
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-user"></i> <b class="fw-normal text-decoration-underline">Username:</b> {{user.username}}</p>
+                        {% if user.user_type == 4 %}
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-address-card"></i> <b class="fw-normal text-decoration-underline">Name:</b> {{profile.name}}</p>
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-envelope"></i> <b class="fw-normal text-decoration-underline">Email:</b> {{user.email}}</p>
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-map"></i> <b class="fw-normal text-decoration-underline">Address:</b> {{profile.address}}</p>
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-phone"></i> <b class="fw-normal text-decoration-underline">Contact No.:</b> {{profile.contact}}</p>
+                        {% elif user.user_type == 1 %}
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-address-card"></i> <b class="fw-normal text-decoration-underline">First Name:</b> {{user.first_name}}</p>
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw"></i> <b class="fw-normal text-decoration-underline">Last Name:</b> {{user.last_name}}</p>
+                        <p class="fw-light text-black lh-1"><i class="fa-solid fa-fw fa-user-tie"></i> <b class="fw-normal text-decoration-underline">Role:</b> Product Manager</p>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row justify-content-end mt-5">
+                <div class="col col-sm-auto">
+                    <a href="{% url 'profileEditPage' %}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</a>
+                    <a href="{% url 'profileChangePassPage' %}" class="btn btn-dark"><i class="fa-solid fa-key"></i> Change Password</a>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <br><br>
+
+        <br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

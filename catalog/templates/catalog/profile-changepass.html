@@ -1,0 +1,63 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% include 'catalog/head-modules.html' %}
+    <title>Products</title>
+</head>
+<body>
+    {% include 'catalog/header.html' %}
+    <!-- page here -->
+
+    <div class="container w-75">
+
+        <br>
+        <h2 class="py-4 px-4"><i class="fa-solid fa-user"></i> My Profile</h2>
+        <div class="container bg-light p-5">
+            <h4><i class="fa-solid fa-key"></i> Change Password</h4>
+            <hr><br>
+
+            <!-- form start -->
+            <form method= "POST" action="">
+                {% csrf_token %}
+                <div class="container w-50">
+                    <!-- replace p and input with pass | crispyforms -->
+                    
+                    {{pw.old_password | as_crispy_field}}
+
+                    
+                    {{pw.new_password1 | as_crispy_field}}
+
+                    
+                    {{pw.new_password2 | as_crispy_field}}
+                </div>
+
+                <div class="row justify-content-end mt-5 px-4">
+                    <div class="col col-sm-auto">
+                        <button class="btn btn-success" type="submit"><i class="fa-solid fa-save"></i> &nbsp;Save changes</button>
+                        <a href="{% url 'profilePage' %}" class="btn btn-secondary"><i class="fa-solid fa-x"></i> Cancel</a>
+                    </div>
+                </div>
+
+            </form>
+            <!-- form end -->
+
+        </div>
+
+        <br><br>
+
+        <br><br><br>
+
+    </div>
+
+
+    <!-- end of page -->
+    {% include 'catalog/footer.html' %}
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% load static %}
+<div class="container">
+    <div class="row bg-dark">
+
+        <div class="col-9">
+            <div style="height:5px;"></div>
+            
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a href="{% url 'indexPage' %}" class="navbar-brand">
+                        <img src="..." alt="" width="50" height="50">
+                    </a>
+                    
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="{% url 'indexPage' %}">Dashboard</a>
+                                <a class="nav-link" href="{% url 'productsPage' %}">Products</a>
+                                {% if user.user_type == 1 %}
+                                <a class="nav-link" href="{% url 'suppliersPage' %}">Suppliers</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    
+                        <form method = "POST" action="{% url 'searchProduct' %}"class="d-flex flex-fill">
+                            {% csrf_token %}
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+                            <button class="btn btn-outline-light" type="submit">Search</button>
+                        </form>
+    
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-3">
+
+            <!-- if user is logged in -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4">
+                            <div style="height:10px;"></div>
+                            <a href="" class="navbar-brand">
+                                {% if profile.profilepicture %}
+                                    <img class="rounded-3" src="{{profile.profilepicture.url}}" alt="" height="50" width="50">
+                                {% else %}
+                                    <img class="rounded-3" src="{% static 'default_pfp.png' %}" alt="" height="50" width="50">
+                                {% endif %}
+                            </a>
+                        </div>
+
+                        <div class="col-8">
+                            <a href="{% url 'profilePage' %}" class="nav-link" style="padding:0;color:white">My Profile</a>
+                            {% if user.user_type == 4 %}
+                            <a href="{% url 'myReviewsPage' %}" class="nav-link" style="padding:0;color:white">My Reviews</a>
+                            {% elif user.user_type == 1 %}
+                            <a href="{% url 'managePage' %}" class="nav-link" style="padding:0;color:white">Management</a>
+                            {% endif %}
+                            <a href="{% url 'logout' %}" class="nav-link" style="padding:0;color:white">Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+            <!--  -->
+
+            <!-- if user is not logged in -->
+
+                <!-- <div style="height:15px;"></div>
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-4">
+                            <a href="{% url 'loginPage' %}" class="nav-link" style="padding:0;color:white">Log in</a>
+                            <a href="{% url 'registerPage' %}" class="nav-link" style="padding:0;color:white">Sign up</a>
+                        </div>
+                    </div>
+                </div> -->
+
+            <!--  -->
+
+        </div>
+
+
+
+    </div>
+</div>
